@@ -1,19 +1,15 @@
-//Task 1 Функция, возвращающая случайное целое число из переданного диапазона включительно
-function getRandomInt(min, max){
-  if(min>=max){
-    return -1;
+//Task 2 Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно
+const getRandomFloat = (min, max, precision) => {
+  if (min >= max) {
+    throw new Error('Минимальное значение больше максимального');
   }
-  return Math.floor(Math.random()*(max-min+1) + min);
-}
+  return Number((Math.random() * (max - min) + min).toFixed(precision));
+};
+
+//Task 1 Функция, возвращающая случайное целое число из переданного диапазона включительно
+const getRandomInt = (min, max) => getRandomFloat(min, max, 0);
+
+getRandomFloat(1.1, 1.12, 2);
 getRandomInt(3, 4);
 
-//Task 2 Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно
 
-function getRandom(min, max, digitsQuantity){
-  if (min>=max){
-    return -1;
-  }
-  const digitsMultiplier = Math.pow(10, digitsQuantity);
-  return Math.round((Math.random() * (max - min) + min) * digitsMultiplier) / digitsMultiplier;
-}
-getRandom(1.1, 1.12,2);
