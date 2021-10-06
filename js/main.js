@@ -18,7 +18,7 @@ const PHOTOS = ['https://assets.htmlacademy.ru/content/intensive/javascript-1/ke
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'];
 const getPhotos = () => {
-  const randomSize = Number(getRandomInt(0, photosList.length));
+  const randomSize = Number(getRandomInt(0, PHOTOS.length));
   const result = [];
   for (let i = 0; i < randomSize; i++) {
     result.push(PHOTOS[i]);
