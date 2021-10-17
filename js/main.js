@@ -1,8 +1,8 @@
 import {createElement} from './mocks.js';
-import {similarListFragment} from './popup.js';
+import {createPopup} from './popup.js';
 
 const similarElements = Array.from({length: 10}, createElement);
-similarElements[0];
-
-const offers = document.querySelector('#map-canvas');
-offers.appendChild(similarListFragment);
+//createPopup(similarElements[0]);
+for (let i =0;i<similarElements.length; i++){
+  createPopup(similarElements[i]);
+}
