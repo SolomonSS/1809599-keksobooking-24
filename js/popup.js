@@ -7,7 +7,7 @@ const TypeName = {
   PALACE: 'Дворец',
   HOTEL: 'Отель',
 
-  getById: (id) => this[id.toUpperCase()],
+  getElementById: (id) => this[id.toUpperCase()],
 };
 const setContent = (element, content) => {
   if (content) {
@@ -22,7 +22,7 @@ const createPopup = (advert) => {
   setContent(popup.querySelector('.popup__title'), advert.offer.title);
   setContent(popup.querySelector('.popup__text--address'), advert.offer.address);
   setContent(popup.querySelector('.popup__text--price'), `${advert.offer.price} ₽/ночь`);
-  setContent(popup.querySelector('.popup__type'), TypeName.getById(advert.offer.type));
+  setContent(popup.querySelector('.popup__type'), TypeName.getElementById(advert.offer.type));
   setContent(popup.querySelector('.popup__text--capacity'), `${advert.offer.rooms} комнаты для ${advert.offer.guests} гостей`);
   setContent(popup.querySelector('.popup__text--time'), `Заезд после ${advert.offer.checkin}, выезд до ${advert.offer.checkout}`);
   setContent(popup.querySelector('.popup__features'), advert.offer.features);
