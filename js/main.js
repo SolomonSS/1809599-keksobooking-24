@@ -1,6 +1,5 @@
 import {createElement} from './mocks.js';
+import {createPopup} from './popup.js';
 
 const similarElements = Array.from({length: 10}, createElement);
-similarElements[0];
-
-
+similarElements.forEach((element) => createPopup(element));
