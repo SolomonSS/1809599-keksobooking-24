@@ -26,11 +26,11 @@ typeInput.addEventListener('change', () => {
 
 roomsInput.addEventListener('change', () => {
   if (Number(roomsInput.value) === 100) {
-    capacity.value = 0;
     capacity.setCustomValidity('Не для гостей');
+  } else if (Number(roomsInput.value) < Number(capacity.value)) {
+    capacity.setCustomValidity('Количество гостей превышает вместимость');
   } else {
-    capacity.value = roomsInput.value;
-    capacity.setCustomValidity(`Максимально число гостей - ${capacity.value}`);
+    capacity.setCustomValidity('');
   }
   capacity.reportValidity();
 });
@@ -42,12 +42,12 @@ timeIn.addEventListener('change', () => {
 
 const unActive = () => {
   adForm.classList.add('ad-form--disabled');
-  adForm.setAttribute('disabled','disabled');
+  adForm.setAttribute('disabled', 'disabled');
   mapFilters.classList.add('ad-form--disabled');
-  mapFilters.setAttribute('disabled','disabled');
+  mapFilters.setAttribute('disabled', 'disabled');
 };
 
-const active = () =>{
+const active = () => {
   adForm.classList.remove('ad-form--disabled');
   adForm.removeAttribute('disabled');
   mapFilters.classList.remove('ad-form--disabled');
@@ -57,8 +57,4 @@ unActive();
 active();
 
 
-/*
-    На месте карты отображается серый прямоугольник.
-    Форма заполнения информации об объявлении .ad-form содержит класс ad-form--disabled;
-    Все интерактивные элементы формы .ad-form должны быть заблокированы с помощью атрибута disabled, добавленного на них или на их родительские блоки fieldset;
-    Форма с фильтрами .map__filters заблокирована так же, как и форма .ad-form — на форму добавлен специальный класс, а на её интерактивные элементы атрибуты disabled. */
+
