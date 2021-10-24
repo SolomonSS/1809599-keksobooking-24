@@ -6,6 +6,5 @@ const getRandomFloat = (min, max, precision) => {
 };
 
 const getRandomInt = (min, max) => getRandomFloat(min, max, 0);
-getRandomFloat(0,2,3);
-getRandomInt(2,8);
+
 export {getRandomInt,getRandomFloat};
