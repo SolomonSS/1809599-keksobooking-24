@@ -40,7 +40,7 @@ timeIn.addEventListener('change', () => {
   timeIn.reportValidity();
 });
 
-const unActivatePage = () => {
+const unactivatePage = () => {
   adForm.classList.add('ad-form--disabled');
   adForm.setAttribute('disabled', 'disabled');
   mapFilters.classList.add('ad-form--disabled');
@@ -53,5 +53,5 @@ const activatePage = () => {
   mapFilters.classList.remove('ad-form--disabled');
   mapFilters.removeAttribute('disabled');
 };
-unActivatePage();
+unactivatePage();
 activatePage();
