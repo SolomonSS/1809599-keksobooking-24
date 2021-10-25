@@ -40,21 +40,18 @@ timeIn.addEventListener('change', () => {
   timeIn.reportValidity();
 });
 
-const unActive = () => {
+const unActivatePage = () => {
   adForm.classList.add('ad-form--disabled');
   adForm.setAttribute('disabled', 'disabled');
   mapFilters.classList.add('ad-form--disabled');
   mapFilters.setAttribute('disabled', 'disabled');
 };
 
-const active = () => {
+const activatePage = () => {
   adForm.classList.remove('ad-form--disabled');
   adForm.removeAttribute('disabled');
   mapFilters.classList.remove('ad-form--disabled');
   mapFilters.removeAttribute('disabled');
 };
-unActive();
-active();
-
-
-
+unActivatePage();
+activatePage();
