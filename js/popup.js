@@ -7,7 +7,7 @@ const TypeName = {
   PALACE: 'Дворец',
   HOTEL: 'Отель',
 
-  getElementById: (id) => this[id.toUpperCase()],
+  getElementById: (id) => TypeName[id.toUpperCase()],
 };
 const setContent = (element, content) => {
   if (content) {
@@ -29,7 +29,6 @@ const createPopup = (advert) => {
   setContent(popup.querySelector('.popup__description'), advert.offer.description);
   popup.querySelector('.popup__photos').src = advert.offer.photos;
   popup.querySelector('.popup__avatar').src = advert.author.avatar;
-
   return popup;
 };
 
