@@ -1,7 +1,16 @@
 import {createElement} from './mocks.js';
 import {createPopup} from './popup.js';
 import './form.js';
-const offersMap = document.querySelector('.map__canvas');
+import './map.js';
+import {setMapFormEnabled} from './map.js';
+import {setAdFormEnabled} from './form.js';
 
+const setPageEnabled = (enabled) => {
+  setAdFormEnabled(enabled);
+  setMapFormEnabled(enabled);
+};
+setPageEnabled();
+const offersMap = document.querySelector('.map__canvas');
+createPopup();
 const similarElements = Array.from({length: 10}, createElement);
-similarElements.forEach((element) => offersMap.appendChild(createPopup(element)));
+offersMap.appendChild(createPopup(similarElements[0]));

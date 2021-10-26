@@ -1,11 +1,13 @@
+import {setFormEnabled} from './utils.js';
+
 const typeInput = document.querySelector('#type');
 const price = document.querySelector('#price');
-const roomsInput = document.querySelector('#room_number');
+const roomNumber = document.querySelector('#room_number');
 const capacity = document.querySelector('#capacity');
 const timeIn = document.querySelector('#timein');
 const timeOut = document.querySelector('#timeout');
 const adForm = document.querySelector('.ad-form');
-const mapFilters = document.querySelector('.map__filters');
+
 
 const TypePrice = {
   BUNGALOW: 0,
@@ -23,11 +25,14 @@ typeInput.addEventListener('change', () => {
   typeInput.reportValidity();
 });
 
-
-roomsInput.addEventListener('change', () => {
-  if (Number(roomsInput.value) === 100) {
+roomNumber.addEventListener('change', () => {
+  if ((Number(roomNumber.value) === 100) && (Number(capacity.value) === 0)) {
+    capacity.setCustomValidity('');
+  } else if (Number(roomNumber.value) === 100) {
     capacity.setCustomValidity('Не для гостей');
-  } else if (Number(roomsInput.value) < Number(capacity.value)) {
+  } else if (Number(roomNumber.value) !== 100 && Number(capacity.value) === 0) {
+    capacity.setCustomValidity('Неверное количество гостей');
+  } else if (Number(roomNumber.value) < Number(capacity.value)) {
     capacity.setCustomValidity('Количество гостей превышает вместимость');
   } else {
     capacity.setCustomValidity('');
@@ -37,21 +42,14 @@ roomsInput.addEventListener('change', () => {
 
 timeIn.addEventListener('change', () => {
   timeOut.value = timeIn.value;
-  timeIn.reportValidity();
 });
 
-const unactivatePage = () => {
-  adForm.classList.add('ad-form--disabled');
-  adForm.setAttribute('disabled', 'disabled');
-  mapFilters.classList.add('ad-form--disabled');
-  mapFilters.setAttribute('disabled', 'disabled');
-};
+timeOut.addEventListener('change', () => {
+  timeIn.value = timeOut.value;
+});
 
-const activatePage = () => {
-  adForm.classList.remove('ad-form--disabled');
-  adForm.removeAttribute('disabled');
-  mapFilters.classList.remove('ad-form--disabled');
-  mapFilters.removeAttribute('disabled');
-};
-unactivatePage();
-activatePage();
+const setAdFormEnabled = (enabled) => setFormEnabled(adForm, enabled, 'ad-form--disabled');
+
+export {setAdFormEnabled};
+
+
