@@ -1,5 +1,4 @@
 const cardOfferTemplate = document.querySelector('#card').content.querySelector('.popup');
-
 const TypeName = {
   FLAT: 'Квартира',
   BUNGALOW: 'Бунгало',
@@ -31,7 +30,6 @@ const createPopup = (advert) => {
   popup.querySelector('.popup__avatar').src = advert.author.avatar;
   return popup;
 };
-
 
 export {createPopup};
 

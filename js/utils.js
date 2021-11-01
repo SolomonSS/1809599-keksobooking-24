@@ -8,8 +8,12 @@ const getRandomFloat = (min, max, precision) => {
 const getRandomInt = (min, max) => getRandomFloat(min, max, 0);
 
 const setFormEnabled = (form, enabled, disabledClass) => {
-  form.classList.add(disabledClass);
+  if (enabled) {
+    form.classList.remove(disabledClass);
+  } else {
+    form.classList.add(disabledClass);
+  }
   form.setAttribute(enabled, enabled);
 };
 
-export {getRandomInt,getRandomFloat, setFormEnabled};
+export {getRandomInt, getRandomFloat, setFormEnabled};
