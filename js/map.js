@@ -9,7 +9,7 @@ const address = document.querySelector('#address');
 
 const map = L.map('map-canvas')
   .setView({
-    lat: 35.65283,
+    lat: 35.65284,
     lng: 139.83947,
   }, 10);
 
