@@ -11,6 +11,5 @@ const setPageEnabled = (enabled) => {
 };
 setPageEnabled();
 const offersMap = document.querySelector('.map__canvas');
-createPopup();
 const similarElements = Array.from({length: 10}, createElement);
 offersMap.appendChild(createPopup(similarElements[0]));
