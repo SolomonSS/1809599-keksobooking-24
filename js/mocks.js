@@ -16,8 +16,8 @@ const shuffleArray = (array) => array.slice().sort(() => Math.random() - 0.5);
 const getRandomArray = (sourceData) => shuffleArray(sourceData.slice(0, Number(getRandomInt(0, sourceData.length - 1))));
 
 const createElement = () => {
-  const lat = getRandomFloat(LAT_MIN, LAT_MAX, 5);
-  const lng = getRandomFloat(LNG_MIN, LNG_MAX, 5);
+  const lat = Number(getRandomFloat(LAT_MIN, LAT_MAX, 5));
+  const lng = Number(getRandomFloat(LNG_MIN, LNG_MAX, 5));
   return {
     author: {
       avatar: `${'img/avatars/user0'}${getRandomInt(1, 10)}.png`,

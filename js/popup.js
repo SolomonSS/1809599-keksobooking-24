@@ -1,5 +1,6 @@
 const cardOfferTemplate = document.querySelector('#card').content.querySelector('.popup');
 
+
 const TypeName = {
   FLAT: 'Квартира',
   BUNGALOW: 'Бунгало',
