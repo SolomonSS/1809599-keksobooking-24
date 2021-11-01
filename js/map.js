@@ -69,7 +69,7 @@ const createMarker = (point) => {
   return marker;
 };
 
-similarElements.map((element) => createMarker(element));
+similarElements.forEach((element) => createMarker(element));
 
 
 export {setMapFormEnabled, map};
