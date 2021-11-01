@@ -60,6 +60,10 @@ const createMarker = (point) => {
     .bindPopup(createPopup(point));
 };
 
-export {setMapFormEnabled, map, createMarker, mainMarker};
+const showOffersOnMap = (offers) => {
+  offers.forEach(createMarker);
+};
+
+export {setMapFormEnabled, map, showOffersOnMap, mainMarker};
 
 
