@@ -1,16 +1,15 @@
 import {setFormEnabled} from './utils.js';
-import {createElement} from './mocks.js';
 import {createPopup} from './popup.js';
 
 const mapFilterForm = document.querySelector('.map__filters');
 const setMapFormEnabled = (enabled) => setFormEnabled(mapFilterForm, enabled, 'ad-form--disabled');
-
-const address = document.querySelector('#address');
+const LAT = 35.65284;
+const LNG = 139.83947;
 
 const map = L.map('map-canvas')
   .setView({
-    lat: 35.65284,
-    lng: 139.83947,
+    lat: LAT,
+    lng: LNG,
   }, 10);
 
 L.tileLayer(
@@ -28,25 +27,18 @@ const mainMarkerIcon = L.icon({
 
 const mainMarker = L.marker(
   {
-    lat: 35.65283,
-    lng: 139.83947,
+    lat: LAT,
+    lng: LNG,
   },
   {
     draggable: true,
     mainMarkerIcon,
   },
 );
-
 mainMarker.addTo(map);
 
-mainMarker.on('moveend', (evt) => {
-  address.value = evt.target.getLatLng();
-});
-
-const similarElements = Array.from({length: 10}, createElement);
-
 const createMarker = (point) => {
-  const {lat,lng} = point.location;
+  const {lat, lng} = point.location;
 
   const icon = L.icon({
     iconUrl: 'img/pin.svg',
@@ -66,12 +58,8 @@ const createMarker = (point) => {
   marker
     .addTo(map)
     .bindPopup(createPopup(point));
-  return marker;
 };
 
-similarElements.forEach((element) => createMarker(element));
-
-
-export {setMapFormEnabled, map};
+export {setMapFormEnabled, map, createMarker, mainMarker};
 
 
