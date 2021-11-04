@@ -1,4 +1,8 @@
 const cardOfferTemplate = document.querySelector('#card').content.querySelector('.popup');
+const successPopupTemplate = document.querySelector('#success').content.querySelector('.success');
+const errorPopupTemplate = document.querySelector('#error').content.querySelector('.error');
+const body = document.querySelector('body');
+
 const TypeName = {
   FLAT: 'Квартира',
   BUNGALOW: 'Бунгало',
@@ -26,10 +30,22 @@ const createPopup = (advert) => {
   setContent(popup.querySelector('.popup__text--time'), `Заезд после ${advert.offer.checkin}, выезд до ${advert.offer.checkout}`);
   setContent(popup.querySelector('.popup__features'), advert.offer.features);
   setContent(popup.querySelector('.popup__description'), advert.offer.description);
-  popup.querySelector('.popup__photos').src = advert.offer.photos;
+  //Не понимаю как лучше реализовать добавления массива фотографий
+  advert.offer.photos.map((photo) =>  popup.querySelector('.popup__photos').innerHTML += `<img src=${photo} class="popup__photo" width="45" height="40" alt="Фотография жилья">`);
   popup.querySelector('.popup__avatar').src = advert.author.avatar;
   return popup;
 };
 
-export {createPopup};
+const onSuccessMessage = () =>{
+  const message = successPopupTemplate.cloneNode(true);
+  body.appendChild(message);
+};
+
+const onErrorMessage = () =>{
+  const message = errorPopupTemplate.cloneNode(true);
+  body.appendChild(message);
+};
+
+
+export {createPopup, onSuccessMessage, onErrorMessage};
 
