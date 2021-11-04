@@ -13,7 +13,6 @@
   });*/
 
 import {onErrorMessage, onSuccessMessage} from './popup.js';
-import {showOffersOnMap} from './map.js';
 
 const getData = (onSuccess, onError) => fetch(
   'https://24.javascript.pages.academy/keksobooking/data')
@@ -39,10 +38,10 @@ const getData = (onSuccess, onError) => fetch(
     });
 };*/
 //Не уверен, что этот метод работает корректно
-const sendData = (onError) => fetch('https://24.javascript.pages.academy/keksobooking',
+const sendData = (body) => fetch('https://24.javascript.pages.academy/keksobooking',
   {
     method: 'POST',
-    body: new FormData('.notice'),
+    body,
   })
   .then((response) => {
     if (response.ok) {
@@ -52,7 +51,7 @@ const sendData = (onError) => fetch('https://24.javascript.pages.academy/keksobo
     }
   })
   .catch((err) => {
-    onError(err);
+    throw new Error(err);
   });
 
 export {getData, sendData};
