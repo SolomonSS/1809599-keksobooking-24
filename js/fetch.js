@@ -1,57 +1,37 @@
-// import {showOffersOnMap} from './map.js';
+import {showSuccess, showError, onClickHandler, removeSuccess, onEscHandler, removeError} from './notification.js';
 
-/*fetch(
-  'https://24.javascript.pages.academy/keksobooking/data',
-  {
-    method: 'GET',
-    credentials: 'same-origin',
-  },
-)
-  .then((response) => response.json())
-  .then((offers) => {
-    showOffersOnMap(offers);
-  });*/
+const API_URL = 'https://24.javascript.pages.academy/keksobooking';
 
-import {onErrorMessage, onSuccessMessage} from './popup.js';
+const fetchOffers = (onSuccess) =>
+  fetch(`${API_URL}/data`)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(`${response.status} ${response.statusText}`);
+    })
+    .then(onSuccess)
+    .catch(showError);
 
-const getData = (onSuccess, onError) => fetch(
-  'https://24.javascript.pages.academy/keksobooking/data')
-  .then((response) => {
-    if (response.ok) {
-      return response.json();
-    }
-    throw new Error(`${response.status} ${response.statusText}`);
-  })
-  .then((offers) => {
-    onSuccess(offers);
-  }).catch((err) => {
-    onError(err);
-  });
-
-/*const getData = (onError) => {
-  fetch('https://24.javascript.pages.academy/keksobooking/data')
-    .then((response) => response.json())
-    .then((offers) => {
-      showOffersOnMap(offers);
-    }).catch((err) => {
-      onError(err);
+const saveOffer = (offer) =>
+  fetch(API_URL,
+    {
+      method: 'POST',
+      body: offer,
+    })
+    .then((response) => {
+      if (response.ok) {
+        showSuccess();
+        onClickHandler(removeSuccess);
+        onEscHandler(removeSuccess);
+      } else {
+        showError();
+        onClickHandler(removeError);
+        onEscHandler(removeError);
+      }
+    })
+    .catch((err) => {
+      throw new Error(err);
     });
-};*/
-//Не уверен, что этот метод работает корректно
-const sendData = (body) => fetch('https://24.javascript.pages.academy/keksobooking',
-  {
-    method: 'POST',
-    body,
-  })
-  .then((response) => {
-    if (response.ok) {
-      onSuccessMessage();
-    } else {
-      onErrorMessage();
-    }
-  })
-  .catch((err) => {
-    throw new Error(err);
-  });
 
-export {getData, sendData};
+export {fetchOffers, saveOffer};
