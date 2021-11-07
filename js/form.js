@@ -69,6 +69,6 @@ formSubmitBtn.addEventListener('click', (evt) => {
   saveOffer(formData, showSuccess, showError);
 });
 
-export {setAdFormEnabled, setAddress};
+export {setAdFormEnabled, setAddress, adForm};
 
 
