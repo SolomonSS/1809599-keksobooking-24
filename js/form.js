@@ -62,7 +62,11 @@ capacityInput.addEventListener('change', onRoomsCapacityChange);
 timeInInput.addEventListener('change', onTimeChange);
 timeOutInput.addEventListener('change', onTimeChange);
 
-formSubmitBtn.addEventListener('submit', (evt) => saveOffer(new FormData(evt.target)));
+formSubmitBtn.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  const formData = new FormData(adForm);
+  saveOffer(formData);
+});
 
 export {setAdFormEnabled, setAddress};
 

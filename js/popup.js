@@ -19,13 +19,25 @@ const setContent = (element, content) => {
 };
 
 const renderFeatures = (list, hiddenFeatures) => {
-  list.forEach((element) => {
-    hiddenFeatures.forEach((feature) => {
-      if (feature.className.includes(element)) {
-        feature.classList.remove('hidden');
-      }
+  if (list) {
+    list.forEach((element) => {
+      hiddenFeatures.forEach((feature) => {
+        if (feature.className.includes(element)) {
+          feature.classList.remove('hidden');
+        }
+      });
     });
-  });
+  } else {
+    hiddenFeatures.classList.add('hidden');
+  }
+};
+
+const renderPhotos = (list, element) =>{
+  if(list){
+    (list.offer.photos || []).map((photo) => element.querySelector('.popup__photos').innerHTML += `<img src=${photo} class="popup__photo" width="45" height="40" alt="Фотография жилья">`);
+  } else {
+    element.classList.add('hidden');
+  }
 };
 
 const createPopup = (advert) => {
@@ -38,7 +50,7 @@ const createPopup = (advert) => {
   setContent(popup.querySelector('.popup__text--time'), `Заезд после ${advert.offer.checkin}, выезд до ${advert.offer.checkout}`);
   setContent(popup.querySelector('.popup__description'), advert.offer.description);
   renderFeatures(advert.offer.features || [], popup.querySelectorAll('.popup__feature'));
-  (advert.offer.photos || []).map((photo) => popup.querySelector('.popup__photos').innerHTML += `<img src=${photo} class="popup__photo" width="45" height="40" alt="Фотография жилья">`);
+  renderPhotos(advert, popup);
   popup.querySelector('.popup__avatar').src = advert.author.avatar;
   return popup;
 };
