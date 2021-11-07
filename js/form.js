@@ -1,5 +1,6 @@
 import {setFormEnabled} from './utils.js';
 import {saveOffer} from './fetch.js';
+import {showError, showSuccess} from './notification.js';
 
 const TypePrice = {
   BUNGALOW: 0,
@@ -65,7 +66,7 @@ timeOutInput.addEventListener('change', onTimeChange);
 formSubmitBtn.addEventListener('click', (evt) => {
   evt.preventDefault();
   const formData = new FormData(adForm);
-  saveOffer(formData);
+  saveOffer(formData, showSuccess, showError);
 });
 
 export {setAdFormEnabled, setAddress};

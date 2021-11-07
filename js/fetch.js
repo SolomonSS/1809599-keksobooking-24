@@ -1,4 +1,4 @@
-import {showSuccess, showError} from './notification.js';
+import {showError} from './notification.js';
 
 const API_URL = 'https://24.javascript.pages.academy/keksobooking';
 
@@ -13,7 +13,7 @@ const fetchOffers = (onSuccess) =>
     .then(onSuccess)
     .catch(showError);
 
-const saveOffer = (offer) =>
+const saveOffer = (offer, onSuccess, onError) =>
   fetch(API_URL,
     {
       method: 'POST',
@@ -21,9 +21,9 @@ const saveOffer = (offer) =>
     })
     .then((response) => {
       if (response.ok) {
-        showSuccess();
+        onSuccess();
       } else {
-        showError();
+        onError();
       }
     })
     .catch((err) => {
