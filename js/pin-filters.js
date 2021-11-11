@@ -17,7 +17,7 @@ const typeFilter = mapFilters.querySelector('#housing-type');
 const priceFilter = mapFilters.querySelector('#housing-price');
 const roomsFilter = mapFilters.querySelector('#housing-rooms');
 const guestsFilter = mapFilters.querySelector('#housing-guests');
-const featuresFieldset = mapFilters.querySelectorAll('#housing-features');
+const featuresFieldset = mapFilters.querySelectorAll('.map__checkbox');
 //const featuresCheckbox = featuresFieldset.querySelectorAll('.map__checkbox');
 
 const isFilterNotSet = (filter) => filter.value === FILTER_ANY;
@@ -32,9 +32,15 @@ const isSuitableAdvertPrice = (advert) => {
 };
 
 const isSuitableAdvertFeatures = (advert) =>{
-  if(featuresFieldset.length){
+  const features = [];
+  featuresFieldset.forEach((feature)=>{
+    if(feature.checked){
+      features.push(feature);
+    }
+  });
+  if(features.length){
     if(advert.offer.features){
-      return featuresFieldset.every((item) => advert.some((value) => value === item));
+      return features.every((item) => advert.some((value) => value === item));
     }
     return false;
   }
@@ -49,7 +55,7 @@ const filters = [
   isSuitableAdvertPrice,
   isSuitableAdvertRooms,
   isSuitableAdvertGuests,
-  //isSuitableAdvertFeatures,
+  isSuitableAdvertFeatures,
 ];
 
 const isSuitableAdvert = (advert) => filters.every((filter) => filter(advert));
@@ -78,7 +84,7 @@ const setFilterListeners = (adverts) => {
   priceFilter.addEventListener('change', filterChangeHandler);
   roomsFilter.addEventListener('change', filterChangeHandler);
   guestsFilter.addEventListener('change', filterChangeHandler);
-  //featuresCheckbox.forEach((checkbox) => checkbox.addEventListener('change', filterChangeHandler));
+  featuresFieldset.forEach((checkbox) => checkbox.addEventListener('change', filterChangeHandler));
 };
 
 export {filterAdverts, setFilterListeners};
