@@ -7,9 +7,7 @@ const setFormEnabled = (form, enabled, disabledClass) => {
   form.setAttribute(enabled, enabled);
 };
 
-const isEscapeKey = (evt) => evt.key === 'Escape';
-
-function debounce (callback, timeoutDelay = 500) {
+const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
   return () => {
     if(timeoutId){
@@ -17,6 +15,6 @@ function debounce (callback, timeoutDelay = 500) {
     }
     timeoutId = window.setTimeout(callback, timeoutDelay);
   };
-}
+};
 
-export {setFormEnabled, isEscapeKey, debounce};
+export {setFormEnabled, debounce};

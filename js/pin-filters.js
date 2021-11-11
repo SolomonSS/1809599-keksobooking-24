@@ -9,7 +9,6 @@ const Price = {
   low: [0,10000],
   middle:[10000,50000],
   high:[50000, Infinity],
-  any:[0, Infinity],
 };
 
 const mapFilters = document.querySelector('.map__filters');
@@ -19,15 +18,16 @@ const roomsFilter = mapFilters.querySelector('#housing-rooms');
 const guestsFilter = mapFilters.querySelector('#housing-guests');
 const featuresFieldset = mapFilters.querySelectorAll('.map__checkbox');
 
-const isFilterNotSet = (filter) => filter.value === FILTER_ANY;
+const isAnyFilter = (filter) => filter.value === FILTER_ANY;
 
-const isSuitableAdvertType = (advert) => isFilterNotSet(typeFilter) || advert.offer.type === typeFilter.value;
+const isSuitableAdvertType = (advert) => isAnyFilter(typeFilter) || advert.offer.type === typeFilter.value;
 
-const isSuitableAdvertPrice = (advert) => {
+const selectedPrice = (advert) => {
   const value = priceFilter.value;
-  const minPrice = Price[value][0];
-  const maxPrice = Price[value][1];
-  return (minPrice <= advert.offer.price && advert.offer.price < maxPrice);
+  if(!isAnyFilter(priceFilter.value)) {
+    const [minPrice, maxPrice] = Price[value];
+    return (minPrice <= advert.offer.price && advert.offer.price < maxPrice);
+  }
 };
 
 const isSuitableAdvertFeatures = (advert) =>{
@@ -46,12 +46,12 @@ const isSuitableAdvertFeatures = (advert) =>{
   return true;
 };
 
-const isSuitableAdvertRooms = (advert) => isFilterNotSet(roomsFilter) || advert.offer.rooms === Number(roomsFilter.value);
-const isSuitableAdvertGuests = (advert) => isFilterNotSet(guestsFilter) || advert.offer.guests === Number(guestsFilter.value);
+const isSuitableAdvertRooms = (advert) => isAnyFilter(roomsFilter) || advert.offer.rooms === Number(roomsFilter.value);
+const isSuitableAdvertGuests = (advert) => isAnyFilter(guestsFilter) || advert.offer.guests === Number(guestsFilter.value);
 
 const filters = [
   isSuitableAdvertType,
-  isSuitableAdvertPrice,
+  selectedPrice,
   isSuitableAdvertRooms,
   isSuitableAdvertGuests,
   isSuitableAdvertFeatures,
@@ -86,4 +86,9 @@ const setFilterListeners = (adverts) => {
   featuresFieldset.forEach((checkbox) => checkbox.addEventListener('change', filterChangeHandler));
 };
 
-export {filterAdverts, setFilterListeners};
+const fetchAdverts = ((adverts) => {
+  showOffersOnMap(adverts);
+  setFilterListeners(adverts);
+});
+
+export {fetchAdverts};

@@ -1,9 +1,8 @@
 import './form.js';
-import {initMap, setMapFormEnabled, showOffersOnMap} from './map.js';
+import {initMap, setMapFormEnabled} from './map.js';
 import {setAdFormEnabled, setAddress} from './form.js';
 import {fetchOffers} from './fetch.js';
-import './pin-filters.js';
-import {setFilterListeners} from './pin-filters.js';
+import {fetchAdverts} from './pin-filters.js';
 
 const setPageEnabled = (enabled) => {
   setAdFormEnabled(enabled);
@@ -13,7 +12,7 @@ const setPageEnabled = (enabled) => {
 initMap(
   () => {
     setPageEnabled(true);
-    fetchOffers(showOffersOnMap);
+    fetchOffers(fetchAdverts);
   },
   setAddress);
 
