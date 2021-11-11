@@ -41,14 +41,14 @@ const isSuitableAdvertFeatures = (advert) =>{
   return true;
 };
 
-const isSuitableAdvertRooms = (advert) => isFilterNotSet(roomsFilter.value) || advert.offer.rooms === Number(roomsFilter.value);
-const isSuitableAdvertGuests = (advert) => isFilterNotSet(guestsFilter.value) || advert.offer.guests === Number(guestsFilter.value);
+const isSuitableAdvertRooms = (advert) => isFilterNotSet(roomsFilter) || advert.offer.rooms === Number(roomsFilter.value);
+const isSuitableAdvertGuests = (advert) => isFilterNotSet(guestsFilter) || advert.offer.guests === Number(guestsFilter.value);
 
 const filters = [
   isSuitableAdvertType,
   isSuitableAdvertPrice,
   isSuitableAdvertRooms,
-  //isSuitableAdvertGuests,
+  isSuitableAdvertGuests,
   //isSuitableAdvertFeatures,
 ];
 
@@ -70,7 +70,7 @@ const clearAndShowOnMap = (adverts) =>{
   showOffersOnMap(adverts);
 };
 
-const createFilterListener = (adverts) => debounce(() => clearAndShowOnMap(filterAdverts(adverts)), clearGroup, RENDER_DELAY);
+const createFilterListener = (adverts) => debounce(() => clearAndShowOnMap(filterAdverts(adverts)), RENDER_DELAY);
 
 const setFilterListeners = (adverts) => {
   const filterChangeHandler = createFilterListener(adverts);
