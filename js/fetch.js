@@ -10,8 +10,8 @@ const fetchOffers = (onSuccess) =>
       }
       throw new Error(`${response.status} ${response.statusText}`);
     })
-    .then(onSuccess);
-    //.catch(showError);
+    .then(onSuccess)
+    .catch(showError);
 
 const saveOffer = (offer, onSuccess, onError) =>
   fetch(API_URL,
@@ -25,9 +25,9 @@ const saveOffer = (offer, onSuccess, onError) =>
       } else {
         onError();
       }
-    });
-    /*.catch((err) => {
+    })
+    .catch((err) => {
       throw new Error(err);
-    });*/
+    });
 
 export {fetchOffers, saveOffer};

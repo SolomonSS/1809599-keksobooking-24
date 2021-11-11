@@ -16,4 +16,4 @@ initMap(
     fetchOffers(showOffersOnMap);
   },
   setAddress);
-fetchOffers(setFilterListeners);
+

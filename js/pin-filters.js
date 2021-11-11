@@ -18,7 +18,6 @@ const priceFilter = mapFilters.querySelector('#housing-price');
 const roomsFilter = mapFilters.querySelector('#housing-rooms');
 const guestsFilter = mapFilters.querySelector('#housing-guests');
 const featuresFieldset = mapFilters.querySelectorAll('.map__checkbox');
-//const featuresCheckbox = featuresFieldset.querySelectorAll('.map__checkbox');
 
 const isFilterNotSet = (filter) => filter.value === FILTER_ANY;
 
