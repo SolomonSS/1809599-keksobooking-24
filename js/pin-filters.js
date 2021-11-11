@@ -35,12 +35,12 @@ const isSuitableAdvertFeatures = (advert) =>{
   const features = [];
   featuresFieldset.forEach((feature)=>{
     if(feature.checked){
-      features.push(feature);
+      features.push(feature.value);
     }
   });
   if(features.length){
     if(advert.offer.features){
-      return features.every((item) => advert.some((value) => value === item));
+      return features.every((feature) => advert.offer.features.some((value) => value === feature));
     }
     return false;
   }
