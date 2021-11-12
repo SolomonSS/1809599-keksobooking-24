@@ -24,10 +24,11 @@ const isSuitableAdvertType = (advert) => isAnyFilter(typeFilter) || advert.offer
 
 const selectedPrice = (advert) => {
   const value = priceFilter.value;
-  if(!isAnyFilter(priceFilter.value)) {
+  if(!isAnyFilter(priceFilter)) {
     const [minPrice, maxPrice] = Price[value];
     return (minPrice <= advert.offer.price && advert.offer.price < maxPrice);
   }
+  return true;
 };
 
 const isSuitableAdvertFeatures = (advert) =>{
