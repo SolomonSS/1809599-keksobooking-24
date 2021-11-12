@@ -3,16 +3,20 @@ import {createPopup} from './popup.js';
 
 const LAT = 35.65284;
 const LNG = 139.83947;
+const MAX_QUANTITY = 10;
 
 const mapFilterForm = document.querySelector('.map__filters');
 
 const map = L.map('map-canvas');
+const markGroup = L.layerGroup().addTo(map);
+const clearGroup = () => markGroup.clearLayers();
 
 const mainMarkerIcon = L.icon({
   iconUrl: 'leaflet/images/marker-icon.png',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
+
 const mainMarker = L.marker(
   {
     lat: LAT,
@@ -45,11 +49,9 @@ const createMarker = (point) => {
     },
   );
   marker
-    .addTo(map)
+    .addTo(markGroup)
     .bindPopup(createPopup(point));
 };
-
-const showOffersOnMap = (offers) => offers.forEach(createMarker);
 
 const initMap = (onMapLoad, onMainPinMove) => {
   map.on('load', onMapLoad);
@@ -69,6 +71,12 @@ L.tileLayer(
 
 mainMarker.addTo(map);
 
-export {setMapFormEnabled, map, showOffersOnMap, mainMarker, initMap};
+const showOffersOnMap = (offers) =>{
+  for(let i=0;i < offers.length && i < MAX_QUANTITY;i++){
+    createMarker(offers[i]);
+  }
+};
+
+export {setMapFormEnabled, map, showOffersOnMap, mainMarker, initMap, createMarker, clearGroup};
 
 

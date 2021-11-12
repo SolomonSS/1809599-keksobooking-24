@@ -50,6 +50,8 @@ const setAddress = (location) => {
   addressInput.value = location;
 };
 
+addressInput.setAttribute('disabled', 'disabled');
+
 typeInput.addEventListener('change', () => {
   const price = TypePrice.getValueByType(typeInput.value);
   priceInput.setAttribute('min', price);
