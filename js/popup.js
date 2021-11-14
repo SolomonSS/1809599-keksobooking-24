@@ -18,9 +18,9 @@ const setContent = (element, content) => {
   }
 };
 
-const renderFeatures = (list, hiddenFeatures) => {
-  if (list) {
-    list.forEach((element) => {
+const renderFeatures = (features, hiddenFeatures, popup) => {
+  if (features) {
+    features.forEach((element) => {
       hiddenFeatures.forEach((feature) => {
         if (feature.className.includes(element)) {
           feature.classList.remove('hidden');
@@ -28,13 +28,13 @@ const renderFeatures = (list, hiddenFeatures) => {
       });
     });
   } else {
-    hiddenFeatures.classList.add('hidden');
+    popup.offer.features.classList.add('hidden');
   }
 };
 
-const renderPhotos = (list, element) =>{
-  if(list){
-    (list.offer.photos || []).map((photo) => element.querySelector('.popup__photos').innerHTML += `<img src=${photo} class="popup__photo" width="45" height="40" alt="Фотография жилья">`);
+const renderPhotos = (photos, element) =>{
+  if(photos){
+    (photos.offer.photos || []).map((photo) => element.querySelector('.popup__photos').innerHTML += `<img src=${photo} class="popup__photo" width="45" height="40" alt="Фотография жилья">`);
   } else {
     element.classList.add('hidden');
   }
@@ -49,7 +49,7 @@ const createPopup = (advert) => {
   setContent(popup.querySelector('.popup__text--capacity'), `${advert.offer.rooms} комнаты для ${advert.offer.guests} гостей`);
   setContent(popup.querySelector('.popup__text--time'), `Заезд после ${advert.offer.checkin}, выезд до ${advert.offer.checkout}`);
   setContent(popup.querySelector('.popup__description'), advert.offer.description);
-  renderFeatures(advert.offer.features || [], popup.querySelectorAll('.popup__feature'));
+  renderFeatures(advert.offer.features || [], popup.querySelectorAll('.popup__feature'), popup);
   renderPhotos(advert, popup);
   popup.querySelector('.popup__avatar').src = advert.author.avatar;
   return popup;

@@ -1,4 +1,4 @@
-import {adForm} from './form.js';
+import {resetAll} from './form.js';
 
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -32,10 +32,11 @@ const showSuccess = () => {
   showNotification(successTemplate);
   document.addEventListener('click', onDocumentClick);
   document.addEventListener('keydown', onDocumentEscKeydown);
-  adForm.reset();
+  resetAll();
 };
 const showError = () => {
   showNotification(errorTemplate);
+  document.addEventListener('click', onDocumentClick);
   document.querySelector('.error__button').addEventListener('click', onDocumentClick);
   document.addEventListener('keydown', onDocumentEscKeydown);
 };

@@ -3,7 +3,7 @@ import {createPopup} from './popup.js';
 
 const LAT = 35.65284;
 const LNG = 139.83947;
-const MAX_QUANTITY = 10;
+const MAX_ADVERTS = 10;
 
 const mapFilterForm = document.querySelector('.map__filters');
 
@@ -27,6 +27,10 @@ const mainMarker = L.marker(
     mainMarkerIcon,
   },
 );
+
+const resetMarker = () =>{
+  mainMarker.setLatLng([LAT, LNG]);
+};
 
 const markerIcon = L.icon({
   iconUrl: 'img/pin.svg',
@@ -72,11 +76,11 @@ L.tileLayer(
 mainMarker.addTo(map);
 
 const showOffersOnMap = (offers) =>{
-  for(let i=0;i < offers.length && i < MAX_QUANTITY;i++){
+  for(let i=0;i < offers.length && i < MAX_ADVERTS;i++){
     createMarker(offers[i]);
   }
 };
 
-export {setMapFormEnabled, map, showOffersOnMap, mainMarker, initMap, createMarker, clearGroup};
+export {setMapFormEnabled, map, showOffersOnMap, mainMarker, initMap, createMarker, clearGroup, MAX_ADVERTS, resetMarker};
 
 
