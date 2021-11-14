@@ -17,7 +17,7 @@ const saveOffer = (offer, onSuccess, onError) =>
   fetch(API_URL,
     {
       method: 'POST',
-      offer,
+      body: offer,
     })
     .then((response) => {
       if (response.ok) {

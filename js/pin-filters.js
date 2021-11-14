@@ -1,9 +1,9 @@
-import {debounce} from './utils.js';
-import {showOffersOnMap, clearGroup} from './map.js';
+import {debounce, saveAdvets} from './utils.js';
+import {showOffersOnMap, clearGroup, MAX_ADVERTS} from './map.js';
 
 const RENDER_DELAY = 500;
-const MAX_ADVERTS = 10;
 const FILTER_ANY = 'any';
+const ADVERTS = [];
 
 const Price = {
   low: [0,10000],
@@ -79,17 +79,18 @@ const clearAndShowOnMap = (adverts) =>{
 const createFilterListener = (adverts) => debounce(() => clearAndShowOnMap(filterAdverts(adverts)), RENDER_DELAY);
 
 const setFilterListeners = (adverts) => {
-  const filterChangeHandler = createFilterListener(adverts);
-  typeFilter.addEventListener('change', filterChangeHandler);
-  priceFilter.addEventListener('change', filterChangeHandler);
-  roomsFilter.addEventListener('change', filterChangeHandler);
-  guestsFilter.addEventListener('change', filterChangeHandler);
-  featuresFieldset.forEach((checkbox) => checkbox.addEventListener('change', filterChangeHandler));
+  const onFilterChange = createFilterListener(adverts);
+  typeFilter.addEventListener('change', onFilterChange);
+  priceFilter.addEventListener('change', onFilterChange);
+  roomsFilter.addEventListener('change', onFilterChange);
+  guestsFilter.addEventListener('change', onFilterChange);
+  featuresFieldset.forEach((checkbox) => checkbox.addEventListener('change', onFilterChange));
 };
 
 const fetchAdverts = ((adverts) => {
+  saveAdvets(adverts);
   showOffersOnMap(adverts);
   setFilterListeners(adverts);
 });
 
-export {fetchAdverts};
+export {fetchAdverts, ADVERTS};
