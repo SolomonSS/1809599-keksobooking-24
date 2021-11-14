@@ -18,10 +18,11 @@ const setContent = (element, content) => {
   }
 };
 
-const renderFeatures = (features, hiddenFeatures, popup) => {
+const renderFeatures = (features, popup) => {
+  const popupFeatures = popup.querySelectorAll('.popup__feature');
   if (features) {
     features.forEach((element) => {
-      hiddenFeatures.forEach((feature) => {
+      popupFeatures.forEach((feature) => {
         if (feature.className.includes(element)) {
           feature.classList.remove('hidden');
         }
@@ -49,7 +50,7 @@ const createPopup = (advert) => {
   setContent(popup.querySelector('.popup__text--capacity'), `${advert.offer.rooms} комнаты для ${advert.offer.guests} гостей`);
   setContent(popup.querySelector('.popup__text--time'), `Заезд после ${advert.offer.checkin}, выезд до ${advert.offer.checkout}`);
   setContent(popup.querySelector('.popup__description'), advert.offer.description);
-  renderFeatures(advert.offer.features || [], popup.querySelectorAll('.popup__feature'), popup);
+  renderFeatures(advert.offer.features || [], popup);
   renderPhotos(advert, popup);
   popup.querySelector('.popup__avatar').src = advert.author.avatar;
   return popup;
