@@ -30,6 +30,4 @@ const saveOffer = (offer, onSuccess, onError) =>
       throw new Error(err);
     });
 
-
-
 export {fetchOffers, saveOffer};
