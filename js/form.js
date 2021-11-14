@@ -1,7 +1,7 @@
 import {setFormEnabled} from './utils.js';
 import {saveOffer} from './fetch.js';
 import {showError, showSuccess} from './notification.js';
-import {resetMarker, showOffersOnMap} from './map.js';
+import {clearGroup, resetMarker, showOffersOnMap} from './map.js';
 import {ADVERTS} from './pin-filters.js';
 
 const TypePrice = {
@@ -74,6 +74,7 @@ const resetAll = () =>{
   priceInput.setAttribute('placeholder', '1000');
   mapFilters.reset();
   resetMarker();
+  clearGroup();
   showOffersOnMap(ADVERTS);
 };
 
