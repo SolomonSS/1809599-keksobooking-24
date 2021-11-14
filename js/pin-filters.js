@@ -1,8 +1,9 @@
-import {debounce} from './utils.js';
+import {debounce, saveAdvets} from './utils.js';
 import {showOffersOnMap, clearGroup, MAX_ADVERTS} from './map.js';
 
 const RENDER_DELAY = 500;
 const FILTER_ANY = 'any';
+const ADVERTS = [];
 
 const Price = {
   low: [0,10000],
@@ -87,8 +88,9 @@ const setFilterListeners = (adverts) => {
 };
 
 const fetchAdverts = ((adverts) => {
+  saveAdvets(adverts);
   showOffersOnMap(adverts);
   setFilterListeners(adverts);
 });
 
-export {fetchAdverts};
+export {fetchAdverts, ADVERTS};

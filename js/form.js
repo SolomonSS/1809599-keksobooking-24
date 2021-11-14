@@ -1,6 +1,8 @@
 import {setFormEnabled} from './utils.js';
 import {saveOffer} from './fetch.js';
 import {showError, showSuccess} from './notification.js';
+import {resetMarker, showOffersOnMap} from './map.js';
+import {ADVERTS} from './pin-filters.js';
 
 const TypePrice = {
   BUNGALOW: 0,
@@ -13,6 +15,7 @@ const TypePrice = {
 };
 
 const adForm = document.querySelector('.ad-form');
+const mapFilters = document.querySelector('.map__filters');
 const typeInput = adForm.querySelector('#type');
 const priceInput = adForm.querySelector('#price');
 const roomsInput = adForm.querySelector('#room_number');
@@ -21,6 +24,7 @@ const timeInInput = adForm.querySelector('#timein');
 const timeOutInput = adForm.querySelector('#timeout');
 const addressInput = adForm.querySelector('#address');
 const formSubmitBtn = adForm.querySelector('.ad-form__submit');
+const formResetBtn = adForm.querySelector('.ad-form__reset');
 
 const onTimeChange = (evt) => {
   const newTimeValue = evt.target.value;
@@ -47,7 +51,7 @@ const onRoomsCapacityChange = () => {
 const setAdFormEnabled = (enabled) => setFormEnabled(adForm, enabled, 'ad-form--disabled');
 
 const setAddress = (location) => {
-  addressInput.value = location;
+  addressInput.value = `${location.lat.toFixed(5)}, ${location.lng.toFixed(5)}`;
 };
 
 addressInput.setAttribute('disabled', 'disabled');
@@ -65,12 +69,27 @@ capacityInput.addEventListener('change', onRoomsCapacityChange);
 timeInInput.addEventListener('change', onTimeChange);
 timeOutInput.addEventListener('change', onTimeChange);
 
+const resetAll = () =>{
+  adForm.reset();
+  priceInput.setAttribute('placeholder', '1000');
+  mapFilters.reset();
+  resetMarker();
+  showOffersOnMap(ADVERTS);
+};
+
 formSubmitBtn.addEventListener('click', (evt) => {
   evt.preventDefault();
-  const formData = new FormData(adForm);
-  saveOffer(formData, showSuccess, showError);
+  if (adForm.checkValidity()) {
+    const formData = new FormData(adForm);
+    saveOffer(formData, showSuccess, showError);
+
+  }
 });
 
-export {setAdFormEnabled, setAddress, adForm};
+formResetBtn.addEventListener('click',()=>{
+  resetAll();
+});
+
+export {setAdFormEnabled, setAddress, adForm, resetAll};
 
 
