@@ -63,7 +63,7 @@ const initMap = (onMapLoad, onMainPinMove) => {
     lat: LAT,
     lng: LNG,
   }, 12);
-  mainMarker.on('moveend', (evt) => onMainPinMove(evt.target.getLatLng()));
+  mainMarker.on('drag', (evt) => onMainPinMove(evt.target.getLatLng()));
 };
 
 L.tileLayer(

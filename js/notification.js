@@ -41,4 +41,13 @@ const showError = () => {
   document.addEventListener('keydown', onDocumentEscKeydown);
 };
 
-export {showSuccess, showError};
+const showErrorOnLoad = () => {
+  const error = errorTemplate;
+  error.querySelector('.error__message').textContent = 'Ошибка загрузки';
+  showNotification(error);
+  document.addEventListener('click', onDocumentClick);
+  document.querySelector('.error__button').addEventListener('click', onDocumentClick);
+  document.addEventListener('keydown', onDocumentEscKeydown);
+};
+
+export {showSuccess, showError, showErrorOnLoad};

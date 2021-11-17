@@ -3,7 +3,7 @@ import {showOffersOnMap, clearGroup, MAX_ADVERTS} from './map.js';
 
 const RENDER_DELAY = 500;
 const FILTER_ANY = 'any';
-const ADVERTS = [];
+const advertsList = [];
 
 const Price = {
   low: [0,10000],
@@ -93,4 +93,4 @@ const fetchAdverts = ((adverts) => {
   setFilterListeners(adverts);
 });
 
-export {fetchAdverts, ADVERTS};
+export {fetchAdverts, advertsList};

@@ -2,7 +2,7 @@ import {setFormEnabled} from './utils.js';
 import {saveOffer} from './fetch.js';
 import {showError, showSuccess} from './notification.js';
 import {clearGroup, resetMarker, showOffersOnMap} from './map.js';
-import {ADVERTS} from './pin-filters.js';
+import {advertsList} from './pin-filters.js';
 
 const TypePrice = {
   BUNGALOW: 0,
@@ -54,7 +54,8 @@ const setAddress = (location) => {
   addressInput.value = `${location.lat.toFixed(5)}, ${location.lng.toFixed(5)}`;
 };
 
-addressInput.setAttribute('disabled', 'disabled');
+addressInput.setAttribute('readonly', 'true');
+addressInput.setAttribute('value', '35.65284, 139.83947');
 
 typeInput.addEventListener('change', () => {
   const price = TypePrice.getValueByType(typeInput.value);
@@ -75,7 +76,7 @@ const resetAll = () =>{
   mapFilters.reset();
   resetMarker();
   clearGroup();
-  showOffersOnMap(ADVERTS);
+  showOffersOnMap(advertsList);
 };
 
 formSubmitBtn.addEventListener('click', (evt) => {
