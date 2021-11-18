@@ -1,5 +1,6 @@
 import {debounce, saveAdvets} from './utils.js';
 import {showOffersOnMap, clearGroup, MAX_ADVERTS} from './map.js';
+import {onRoomsCapacityChange} from './form.js';
 
 const RENDER_DELAY = 500;
 const FILTER_ANY = 'any';
@@ -91,6 +92,7 @@ const fetchAdverts = ((adverts) => {
   saveAdvets(adverts);
   showOffersOnMap(adverts);
   setFilterListeners(adverts);
+  onRoomsCapacityChange();
 });
 
 export {fetchAdverts, advertsList};

@@ -4,6 +4,13 @@ import {createPopup} from './popup.js';
 const LAT = 35.65284;
 const LNG = 139.83947;
 const MAX_ADVERTS = 10;
+const MAIN_ICON_SIZES = [52, 52];
+const MAIN_ICON_ANCHOR_SIZES = [26, 52];
+const MAIN_ICON_URL = 'leaflet/images/marker-icon.png';
+const ICON_SIZES = [40, 40];
+const ICON_ANCHOR_SIZES = [20, 40];
+const ICON_URL = 'img/pin.svg';
+const ZOOM = 12;
 
 const mapFilterForm = document.querySelector('.map__filters');
 
@@ -12,9 +19,9 @@ const markGroup = L.layerGroup().addTo(map);
 const clearGroup = () => markGroup.clearLayers();
 
 const mainMarkerIcon = L.icon({
-  iconUrl: 'leaflet/images/marker-icon.png',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconUrl: MAIN_ICON_URL,
+  iconSize: MAIN_ICON_SIZES,
+  iconAnchor: MAIN_ICON_ANCHOR_SIZES,
 });
 
 const mainMarker = L.marker(
@@ -33,9 +40,9 @@ const resetMarker = () =>{
 };
 
 const markerIcon = L.icon({
-  iconUrl: 'img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconUrl: ICON_URL,
+  iconSize: ICON_SIZES,
+  iconAnchor: ICON_ANCHOR_SIZES,
 });
 
 const setMapFormEnabled = (enabled) => setFormEnabled(mapFilterForm, enabled, 'ad-form--disabled');
@@ -62,7 +69,7 @@ const initMap = (onMapLoad, onMainPinMove) => {
   map.setView({
     lat: LAT,
     lng: LNG,
-  }, 12);
+  }, ZOOM);
   mainMarker.on('drag', (evt) => onMainPinMove(evt.target.getLatLng()));
 };
 

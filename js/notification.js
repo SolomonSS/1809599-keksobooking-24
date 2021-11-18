@@ -1,5 +1,7 @@
 import {resetAll} from './form.js';
 
+const ESCAPE_KEY = 'Escape';
+
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
@@ -22,7 +24,7 @@ const onDocumentClick = () => {
 };
 
 const onDocumentEscKeydown = (evt) => {
-  if (evt.key ==='Escape') {
+  if (evt.key ===ESCAPE_KEY) {
     removeNotification();
     document.removeEventListener('keydown', onDocumentEscKeydown);
   }

@@ -6,10 +6,10 @@ const setFormEnabled = (form, enabled, disabledClass) => {
   } else {
     form.classList.add(disabledClass);
   }
-  form.setAttribute(enabled, enabled);
+  form.enabled = enabled;
 };
 
-const debounce = (callback, timeoutDelay = 500) => {
+const debounce = (callback, timeoutDelay) => {
   let timeoutId;
   return () => {
     if(timeoutId){

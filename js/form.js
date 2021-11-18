@@ -10,9 +10,13 @@ const TypePrice = {
   HOTEL: 3000,
   HOUSE: 5000,
   PALACE: 10000,
-
-  getValueByType: (id) => TypePrice[id.toUpperCase()],
 };
+
+const getPrice = (id) =>TypePrice[id.toUpperCase()];
+
+const maxRooms = 100;
+const nullRooms = 0;
+const fractionDigits = 5;
 
 const adForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
@@ -25,6 +29,7 @@ const timeOutInput = adForm.querySelector('#timeout');
 const addressInput = adForm.querySelector('#address');
 const formSubmitBtn = adForm.querySelector('.ad-form__submit');
 const formResetBtn = adForm.querySelector('.ad-form__reset');
+const titleInput = adForm.querySelector('#title');
 
 const onTimeChange = (evt) => {
   const newTimeValue = evt.target.value;
@@ -35,12 +40,11 @@ const onTimeChange = (evt) => {
 const onRoomsCapacityChange = () => {
   const rooms = Number(roomsInput.value);
   const capacity = Number(capacityInput.value);
-
-  if (rooms === 100) {
-    if (capacity !== 0) {
+  if (rooms === maxRooms) {
+    if (capacity !== nullRooms) {
       capacityInput.setCustomValidity('Не для гостей');
     }
-  } else if (capacity === 0 || capacity > rooms) {
+  } else if (capacity === nullRooms || capacity > rooms) {
     capacityInput.setCustomValidity(`Для 1 ${rooms > 1 ? `- ${rooms} гостей` : 'гостя'}`);
   } else {
     capacityInput.setCustomValidity('');
@@ -51,32 +55,43 @@ const onRoomsCapacityChange = () => {
 const setAdFormEnabled = (enabled) => setFormEnabled(adForm, enabled, 'ad-form--disabled');
 
 const setAddress = (location) => {
-  addressInput.value = `${location.lat.toFixed(5)}, ${location.lng.toFixed(5)}`;
+  addressInput.value = `${location.lat.toFixed(fractionDigits)}, ${location.lng.toFixed(fractionDigits)}`;
 };
 
-addressInput.setAttribute('readonly', 'true');
-addressInput.setAttribute('value', '35.65284, 139.83947');
+addressInput.readOnly = 'readonly';
+addressInput.value = '35.65284, 139.83947';
 
 typeInput.addEventListener('change', () => {
-  const price = TypePrice.getValueByType(typeInput.value);
-  priceInput.setAttribute('min', price);
-  priceInput.setAttribute('placeholder', price);
+  const price = getPrice(typeInput.value);
+  priceInput.min = price;
+  priceInput.placeholder = price;
   typeInput.reportValidity();
 });
 
 roomsInput.addEventListener('change', onRoomsCapacityChange);
 capacityInput.addEventListener('change', onRoomsCapacityChange);
-
 timeInInput.addEventListener('change', onTimeChange);
 timeOutInput.addEventListener('change', onTimeChange);
 
-const resetAll = () =>{
+const resetAll = () => {
   adForm.reset();
-  priceInput.setAttribute('placeholder', '1000');
+  priceInput.placeholder = 1000;
   mapFilters.reset();
   resetMarker();
   clearGroup();
+  addressInput.value = '35.65284, 139.83947';
   showOffersOnMap(advertsList);
+};
+
+const checkValid = () =>{
+  const inputs = [titleInput, capacityInput, roomsInput, priceInput];
+  inputs.forEach((input)=>{
+    if(!input.checkValidity()){
+      input.style.border = '2px solid red';
+    } else {
+      input.style.border = '0';
+    }
+  });
 };
 
 formSubmitBtn.addEventListener('click', (evt) => {
@@ -84,14 +99,15 @@ formSubmitBtn.addEventListener('click', (evt) => {
   if (adForm.checkValidity()) {
     const formData = new FormData(adForm);
     saveOffer(formData, showSuccess, showError);
-
+  } else {
+    checkValid();
   }
 });
 
-formResetBtn.addEventListener('click',()=>{
+formResetBtn.addEventListener('click', () => {
   resetAll();
 });
 
-export {setAdFormEnabled, setAddress, adForm, resetAll};
+export {setAdFormEnabled, setAddress, adForm, resetAll, onRoomsCapacityChange};
 
 
