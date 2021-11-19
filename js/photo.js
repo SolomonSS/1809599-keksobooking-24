@@ -14,11 +14,11 @@ const creatingImage = (photo) => {
     const photoPreviewImage = document.createElement('img');
     photoPreview.appendChild(photoPreviewImage);
     photoPreviewImage.src = URL.createObjectURL(photo);
+    photoPreviewImage.height = 70;
+    photoPreviewImage.width = 70;
   } else {
     image.src = URL.createObjectURL(photo);
   }
-  image.height = 70;
-  image.width = 70;
 };
 
 avatarInput.addEventListener('change', () => {
@@ -38,3 +38,13 @@ photoInput.addEventListener('change', () => {
     creatingImage(photo);
   }
 });
+
+const removePhotos = () =>{
+  const photo = photoPreview.querySelector('img');
+  if(photo){
+    photo.remove();
+  }
+  avatarPreview.src = 'img/muffin-grey.svg';
+};
+
+export {removePhotos};

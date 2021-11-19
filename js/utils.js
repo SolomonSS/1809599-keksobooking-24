@@ -19,10 +19,10 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-const saveAdvets = (adverts) =>{
+const saveAdverts = (adverts) =>{
   adverts.forEach((advert)=>{
     advertsList.push(advert);
   });
 };
 
-export {setFormEnabled, debounce, saveAdvets};
+export {setFormEnabled, debounce, saveAdverts};

@@ -1,4 +1,4 @@
-import {debounce, saveAdvets} from './utils.js';
+import {debounce, saveAdverts} from './utils.js';
 import {showOffersOnMap, clearGroup, MAX_ADVERTS} from './map.js';
 import {onRoomsCapacityChange} from './form.js';
 
@@ -89,7 +89,7 @@ const setFilterListeners = (adverts) => {
 };
 
 const fetchAdverts = ((adverts) => {
-  saveAdvets(adverts);
+  saveAdverts(adverts);
   showOffersOnMap(adverts);
   setFilterListeners(adverts);
   onRoomsCapacityChange();

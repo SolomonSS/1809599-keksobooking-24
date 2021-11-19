@@ -3,6 +3,7 @@ import {saveOffer} from './fetch.js';
 import {showError, showSuccess} from './notification.js';
 import {clearGroup, resetMarker, showOffersOnMap} from './map.js';
 import {advertsList} from './pin-filters.js';
+import {removePhotos} from './photo.js';
 
 const TypePrice = {
   BUNGALOW: 0,
@@ -14,9 +15,9 @@ const TypePrice = {
 
 const getPrice = (id) =>TypePrice[id.toUpperCase()];
 
-const maxRooms = 100;
-const nullRooms = 0;
-const fractionDigits = 5;
+const MAX_ROOMS = 100;
+const NULL_ROOMS = 0;
+const FRACTION_DIGITS = 5;
 
 const adForm = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
@@ -40,11 +41,11 @@ const onTimeChange = (evt) => {
 const onRoomsCapacityChange = () => {
   const rooms = Number(roomsInput.value);
   const capacity = Number(capacityInput.value);
-  if (rooms === maxRooms) {
-    if (capacity !== nullRooms) {
+  if (rooms === MAX_ROOMS) {
+    if (capacity !== NULL_ROOMS) {
       capacityInput.setCustomValidity('Не для гостей');
     }
-  } else if (capacity === nullRooms || capacity > rooms) {
+  } else if (capacity === NULL_ROOMS || capacity > rooms) {
     capacityInput.setCustomValidity(`Для 1 ${rooms > 1 ? `- ${rooms} гостей` : 'гостя'}`);
   } else {
     capacityInput.setCustomValidity('');
@@ -55,11 +56,10 @@ const onRoomsCapacityChange = () => {
 const setAdFormEnabled = (enabled) => setFormEnabled(adForm, enabled, 'ad-form--disabled');
 
 const setAddress = (location) => {
-  addressInput.value = `${location.lat.toFixed(fractionDigits)}, ${location.lng.toFixed(fractionDigits)}`;
+  addressInput.value = `${location.lat.toFixed(FRACTION_DIGITS)}, ${location.lng.toFixed(FRACTION_DIGITS)}`;
 };
 
 addressInput.readOnly = 'readonly';
-addressInput.value = '35.65284, 139.83947';
 
 typeInput.addEventListener('change', () => {
   const price = getPrice(typeInput.value);
@@ -79,7 +79,7 @@ const resetAll = () => {
   mapFilters.reset();
   resetMarker();
   clearGroup();
-  addressInput.value = '35.65284, 139.83947';
+  removePhotos();
   showOffersOnMap(advertsList);
 };
 
@@ -89,7 +89,7 @@ const checkValid = () =>{
     if(!input.checkValidity()){
       input.style.border = '2px solid red';
     } else {
-      input.style.border = '0';
+      input.style.border = '1px solid #d9d9d3';
     }
   });
 };
