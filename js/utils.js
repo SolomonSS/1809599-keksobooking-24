@@ -1,5 +1,3 @@
-import {advertsList} from './pin-filters.js';
-
 const setFormEnabled = (form, enabled, disabledClass) => {
   if (enabled) {
     form.classList.remove(disabledClass);
@@ -12,17 +10,11 @@ const setFormEnabled = (form, enabled, disabledClass) => {
 const debounce = (callback, timeoutDelay) => {
   let timeoutId;
   return () => {
-    if(timeoutId){
+    if (timeoutId) {
       window.clearTimeout(timeoutId);
     }
     timeoutId = window.setTimeout(callback, timeoutDelay);
   };
 };
 
-const saveAdverts = (adverts) =>{
-  adverts.forEach((advert)=>{
-    advertsList.push(advert);
-  });
-};
-
-export {setFormEnabled, debounce, saveAdverts};
+export {setFormEnabled, debounce};

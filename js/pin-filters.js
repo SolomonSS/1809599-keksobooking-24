@@ -1,16 +1,17 @@
-import {debounce, saveAdverts} from './utils.js';
-import {showOffersOnMap, clearGroup, MAX_ADVERTS} from './map.js';
+import {debounce} from './utils.js';
+import {clearGroup, MAX_ADVERTS, showOffersOnMap} from './map.js';
 import {onRoomsCapacityChange} from './form.js';
 
 const RENDER_DELAY = 500;
 const FILTER_ANY = 'any';
-const advertsList = [];
 
 const Price = {
-  low: [0,10000],
-  middle:[10000,50000],
-  high:[50000, Infinity],
+  low: [0, 10000],
+  middle: [10000, 50000],
+  high: [50000, Infinity],
 };
+
+const advertsList = [];
 
 const mapFilters = document.querySelector('.map__filters');
 const typeFilter = mapFilters.querySelector('#housing-type');
@@ -25,25 +26,24 @@ const isSuitableAdvertType = (advert) => isAnyFilter(typeFilter) || advert.offer
 
 const selectedPrice = (advert) => {
   const value = priceFilter.value;
-  if(!isAnyFilter(priceFilter)) {
+  if (!isAnyFilter(priceFilter)) {
     const [minPrice, maxPrice] = Price[value];
     return (minPrice <= advert.offer.price && advert.offer.price < maxPrice);
   }
   return true;
 };
 
-const isSuitableAdvertFeatures = (advert) =>{
+const isSuitableAdvertFeatures = (advert) => {
   const features = [];
-  featuresFieldset.forEach((feature)=>{
-    if(feature.checked){
+  featuresFieldset.forEach((feature) => {
+    if (feature.checked) {
       features.push(feature.value);
     }
   });
-  if(features.length){
-    if(advert.offer.features){
-      return features.every((feature) => advert.offer.features.some((value) => value === feature));
-    }
-    return false;
+  if (features.length) {
+    return advert.offer.features
+      ? features.every((feature) => advert.offer.features.some((value) => value === feature))
+      : false;
   }
   return true;
 };
@@ -72,7 +72,7 @@ const filterAdverts = (adverts) => {
   return filteredAdverts;
 };
 
-const clearAndShowOnMap = (adverts) =>{
+const clearAndShowOnMap = (adverts) => {
   clearGroup();
   showOffersOnMap(adverts);
 };
@@ -88,11 +88,11 @@ const setFilterListeners = (adverts) => {
   featuresFieldset.forEach((checkbox) => checkbox.addEventListener('change', onFilterChange));
 };
 
-const fetchAdverts = ((adverts) => {
-  saveAdverts(adverts);
+const onAdvertsLoad = ((adverts) => {
+  adverts.forEach((advert) => advertsList.push(advert));
   showOffersOnMap(adverts);
   setFilterListeners(adverts);
   onRoomsCapacityChange();
 });
 
-export {fetchAdverts, advertsList};
+export {onAdvertsLoad, advertsList};

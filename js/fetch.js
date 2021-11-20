@@ -1,4 +1,4 @@
-import {showErrorOnLoad} from './notification.js';
+import {showError} from './notification.js';
 
 const API_URL = 'https://24.javascript.pages.academy/keksobooking';
 
@@ -11,7 +11,7 @@ const fetchOffers = (onSuccess) =>
       throw new Error(`${response.status} ${response.statusText}`);
     })
     .then(onSuccess)
-    .catch(showErrorOnLoad);
+    .catch(() => showError('Ошибка загрузки объявлений'));
 
 const saveOffer = (offer, onSuccess, onError) =>
   fetch(API_URL,
@@ -26,8 +26,6 @@ const saveOffer = (offer, onSuccess, onError) =>
         onError();
       }
     })
-    .catch((err) => {
-      throw new Error(err);
-    });
+    .catch(() => onError());
 
 export {fetchOffers, saveOffer};

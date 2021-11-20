@@ -35,9 +35,7 @@ const mainMarker = L.marker(
   },
 );
 
-const resetMarker = () =>{
-  mainMarker.setLatLng([LAT, LNG]);
-};
+const resetMarker = () => mainMarker.setLatLng([LAT, LNG]);
 
 const markerIcon = L.icon({
   iconUrl: ICON_URL,
@@ -82,12 +80,22 @@ L.tileLayer(
 
 mainMarker.addTo(map);
 
-const showOffersOnMap = (offers) =>{
-  for(let i=0;i < offers.length && i < MAX_ADVERTS;i++){
+const showOffersOnMap = (offers) => {
+  for (let i = 0; i < offers.length && i < MAX_ADVERTS; i++) {
     createMarker(offers[i]);
   }
 };
 
-export {setMapFormEnabled, map, showOffersOnMap, mainMarker, initMap, createMarker, clearGroup, MAX_ADVERTS, resetMarker};
+export {
+  setMapFormEnabled,
+  map,
+  showOffersOnMap,
+  mainMarker,
+  initMap,
+  createMarker,
+  clearGroup,
+  MAX_ADVERTS,
+  resetMarker
+};
 
 

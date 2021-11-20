@@ -1,19 +1,15 @@
-import {resetAll} from './form.js';
-
 const ESCAPE_KEY = 'Escape';
+const ADVERTS_LOAD_ERROR = 'Ошибка загрузки объявлений';
 
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
-
-const showNotification = (template) => document.body.appendChild(template.cloneNode(true));
-
 const removeNotification = () => {
   const success = document.querySelector('.success');
-  const error = document.querySelector('.error');
   if (success) {
     success.remove();
   } else {
+    const error = document.querySelector('.error');
     error.remove();
   }
 };
@@ -24,32 +20,28 @@ const onDocumentClick = () => {
 };
 
 const onDocumentEscKeydown = (evt) => {
-  if (evt.key ===ESCAPE_KEY) {
+  if (evt.key === ESCAPE_KEY) {
     removeNotification();
     document.removeEventListener('keydown', onDocumentEscKeydown);
   }
 };
 
-const showSuccess = () => {
-  showNotification(successTemplate);
+const showNotification = (template) => {
+  const notification = template.cloneNode(true);
+  document.body.appendChild(notification);
   document.addEventListener('click', onDocumentClick);
   document.addEventListener('keydown', onDocumentEscKeydown);
-  resetAll();
-};
-const showError = () => {
-  showNotification(errorTemplate);
-  document.addEventListener('click', onDocumentClick);
-  document.querySelector('.error__button').addEventListener('click', onDocumentClick);
-  document.addEventListener('keydown', onDocumentEscKeydown);
+  return notification;
 };
 
-const showErrorOnLoad = () => {
-  const error = errorTemplate;
-  error.querySelector('.error__message').textContent = 'Ошибка загрузки';
-  showNotification(error);
-  document.addEventListener('click', onDocumentClick);
+const showSuccess = () => showNotification(successTemplate);
+
+const showError = (errorMessage = null) => {
+  const errorNotification = showNotification(errorTemplate);
+  if (errorMessage) {
+    errorNotification.querySelector('.error__message').textContent = ADVERTS_LOAD_ERROR;
+  }
   document.querySelector('.error__button').addEventListener('click', onDocumentClick);
-  document.addEventListener('keydown', onDocumentEscKeydown);
 };
 
-export {showSuccess, showError, showErrorOnLoad};
+export {showSuccess, showError};

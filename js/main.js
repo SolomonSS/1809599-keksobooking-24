@@ -1,7 +1,7 @@
 import {initMap, setMapFormEnabled} from './map.js';
 import {setAdFormEnabled, setAddress} from './form.js';
 import {fetchOffers} from './fetch.js';
-import {fetchAdverts} from './pin-filters.js';
+import {onAdvertsLoad} from './pin-filters.js';
 import './photo.js';
 
 const setPageEnabled = (enabled) => {
@@ -12,10 +12,10 @@ setPageEnabled(false);
 
 initMap(
   () => {
-    fetchOffers(fetchAdverts);
-    if (fetchOffers(fetchAdverts)) {
+    fetchOffers((adverts) => {
       setPageEnabled(true);
-    }
+      onAdvertsLoad(adverts);
+    });
   },
   setAddress);
 
